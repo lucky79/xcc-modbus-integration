@@ -28,7 +28,8 @@
       }
     },
     "error": {
-      "cannot_connect": "Could not read from xCC. Check the address and port and disconnect any other Modbus client."
+      "cannot_connect": "Could not read from xCC. Check the address and port and disconnect any other Modbus client.",
+      "invalid_host": "Enter an IP address or hostname without a protocol or port."
     },
     "abort": {
       "already_configured": "This controller is already configured.",

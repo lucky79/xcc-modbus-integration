@@ -33,7 +33,7 @@ def normalize_host(value: str) -> str:
         if len(value) > 253 or not all(
             HOSTNAME.fullmatch(label) for label in value.split(".")
         ):
-            raise vol.Invalid("Expected an IP address or hostname") from None
+            raise ValueError("Expected an IP address or hostname") from None
         return value
 
 
@@ -44,7 +44,7 @@ def connection_settings(defaults: dict) -> vol.Schema:
         if CONF_HOST in defaults
         else vol.Required(CONF_HOST)
     )
-    fields = {host: vol.All(str, normalize_host)}
+    fields = {host: str}
     for key, default, minimum, maximum in (
         (CONF_PORT, DEFAULT_PORT, 1, 65535),
         (CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL, 5, 300),
@@ -77,7 +77,16 @@ class XccConfigFlow(ConfigFlow, domain=DOMAIN):
         entry = self._get_reconfigure_entry() if step_id == "reconfigure" else None
         errors = {}
         if user_input is not None:
-            host, port = user_input[CONF_HOST], user_input[CONF_PORT]
+            try:
+                host = normalize_host(user_input[CONF_HOST])
+            except ValueError:
+                return self.async_show_form(
+                    step_id=step_id,
+                    data_schema=connection_settings(user_input),
+                    errors={CONF_HOST: "invalid_host"},
+                )
+            user_input = {**user_input, CONF_HOST: host}
+            port = user_input[CONF_PORT]
             unique_id = f"[{host}]:{port}"
             existing = await self.async_set_unique_id(unique_id)
             if existing is not None and existing is not entry:

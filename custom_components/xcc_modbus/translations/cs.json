@@ -28,7 +28,8 @@
       }
     },
     "error": {
-      "cannot_connect": "Čtení z regulátoru xCC se nezdařilo. Zkontrolujte IP adresu, port a případné připojení jiného klienta Modbus."
+      "cannot_connect": "Čtení z regulátoru xCC se nezdařilo. Zkontrolujte IP adresu, port a případné připojení jiného klienta Modbus.",
+      "invalid_host": "Zadejte IP adresu nebo název regulátoru bez protokolu a portu."
     },
     "abort": {
       "already_configured": "Tento regulátor je už nastavený.",
