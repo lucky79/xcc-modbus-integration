@@ -1,0 +1,39 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to AC Heating xCC",
+        "description": "Enter the controller address and the number of circuits and inputs in use. xCC supports one active Modbus TCP connection.",
+        "data": {
+          "host": "Controller IP address or hostname",
+          "port": "TCP port",
+          "scan_interval": "Poll interval (s)",
+          "heating_circuits": "Heating circuits",
+          "dhw_tanks": "Hot water tanks",
+          "zones": "Individual zones",
+          "external_inputs": "External temperature inputs"
+        }
+      },
+      "reconfigure": {
+        "title": "Reconfigure xCC",
+        "data": {
+          "host": "Controller IP address or hostname",
+          "port": "TCP port",
+          "scan_interval": "Poll interval (s)",
+          "heating_circuits": "Heating circuits",
+          "dhw_tanks": "Hot water tanks",
+          "zones": "Individual zones",
+          "external_inputs": "External temperature inputs"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not read from xCC. Check the address and port and disconnect any other Modbus client."
+    },
+    "abort": {
+      "already_configured": "This controller is already configured.",
+      "already_in_progress": "Setup for this controller is already in progress.",
+      "reconfigure_successful": "The xCC configuration was saved."
+    }
+  }
+}

@@ -1,0 +1,6 @@
+__pycache__/
+*.py[cod]
+.venv/
+.ruff_cache/
+xCC-Loxone-integrace-CZE.pdf
+xCC_modbus_2.5-5.9-8.5.pdf

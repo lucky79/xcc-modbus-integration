@@ -1,0 +1,11 @@
+{
+  "domain": "xcc_modbus",
+  "name": "AC Heating xCC",
+  "codeowners": ["@lucky79"],
+  "config_flow": true,
+  "dependencies": ["modbus"],
+  "documentation": "https://github.com/lucky79/xcc-modbus-integration",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/lucky79/xcc-modbus-integration/issues",
+  "version": "0.1.0"
+}

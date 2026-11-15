@@ -1,0 +1,39 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Připojení regulátoru AC Heating xCC",
+        "description": "Zadejte IP adresu regulátoru a počet skutečně používaných okruhů a vstupů. xCC podporuje jedno současné připojení Modbus TCP.",
+        "data": {
+          "host": "IP adresa nebo název regulátoru",
+          "port": "Port TCP",
+          "scan_interval": "Interval čtení (s)",
+          "heating_circuits": "Počet topných okruhů",
+          "dhw_tanks": "Počet zásobníků TUV",
+          "zones": "Počet samostatných zón",
+          "external_inputs": "Počet externích teplotních vstupů"
+        }
+      },
+      "reconfigure": {
+        "title": "Změna nastavení xCC",
+        "data": {
+          "host": "IP adresa nebo název regulátoru",
+          "port": "Port TCP",
+          "scan_interval": "Interval čtení (s)",
+          "heating_circuits": "Počet topných okruhů",
+          "dhw_tanks": "Počet zásobníků TUV",
+          "zones": "Počet samostatných zón",
+          "external_inputs": "Počet externích teplotních vstupů"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Čtení z regulátoru xCC se nezdařilo. Zkontrolujte IP adresu, port a případné připojení jiného klienta Modbus."
+    },
+    "abort": {
+      "already_configured": "Tento regulátor je už nastavený.",
+      "already_in_progress": "Nastavení tohoto regulátoru už probíhá.",
+      "reconfigure_successful": "Nastavení xCC bylo uloženo."
+    }
+  }
+}
