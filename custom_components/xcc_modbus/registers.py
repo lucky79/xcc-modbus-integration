@@ -1,6 +1,7 @@
 """xCC Modbus register map, protocol 2.5 for xCC 5.9/8.5."""
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
+from enum import StrEnum
 
 from .const import (
     CONF_DHW_TANKS,
@@ -15,6 +16,15 @@ DAYS = "d"
 HOURS = "h"
 
 
+class Section(StrEnum):
+    """Logical sections of the xCC controller."""
+
+    SYSTEM = "system"
+    HEATING = "heating"
+    BUFFER = "buffer"
+    DHW = "dhw"
+
+
 @dataclass(frozen=True, slots=True)
 class Register:
     key: str
@@ -27,6 +37,7 @@ class Register:
     writable: bool = False
     problem: bool = False
     enabled_by_default: bool = True
+    section: Section = Section.SYSTEM
 
     def decode(self, raw: int) -> bool | int | float:
         """Convert a Modbus value into the entity's native unit."""
@@ -80,6 +91,12 @@ SYSTEM = (
     coil("critical_error", "Kritická porucha", 35, problem=True),
     coil("low_tariff", "Nízký tarif HDO", 72),
     coil("auxiliary_heat", "Bivalentní zdroj aktivní", 74),
+)
+
+
+BUFFER = (
+    temperature("buffer_temperature", "Teplota nádrže", 95),
+    coil("buffer_active", "Akumulace aktivní", 32),
 )
 
 
@@ -187,17 +204,13 @@ def zone(index):
 
 def registers_for(config) -> tuple[Register, ...]:
     """Build entities for the circuits and inputs configured on this controller."""
-    registers = list(SYSTEM)
+    heating = []
     for index in range(config[CONF_HEATING_CIRCUITS]):
-        registers.extend(heating_circuit(index))
-    for index in range(config[CONF_DHW_TANKS]):
-        registers.extend(dhw_tank(index))
-    if config[CONF_DHW_TANKS]:
-        registers.extend(DHW_CIRCULATION)
+        heating.extend(heating_circuit(index))
     for index in range(config[CONF_ZONES]):
-        registers.extend(zone(index))
+        heating.extend(zone(index))
     for index in range(config[CONF_EXTERNAL_INPUTS]):
-        registers.append(
+        heating.append(
             temperature(
                 f"external_temperature_{index + 1}",
                 f"Externí teplotní vstup {index + 1}",
@@ -205,4 +218,16 @@ def registers_for(config) -> tuple[Register, ...]:
                 (-40, 80),
             )
         )
-    return tuple(registers)
+
+    hot_water = []
+    for index in range(config[CONF_DHW_TANKS]):
+        hot_water.extend(dhw_tank(index))
+    if hot_water:
+        hot_water.extend(DHW_CIRCULATION)
+
+    return (
+        *SYSTEM,
+        *(replace(register, section=Section.HEATING) for register in heating),
+        *(replace(register, section=Section.BUFFER) for register in BUFFER),
+        *(replace(register, section=Section.DHW) for register in hot_water),
+    )

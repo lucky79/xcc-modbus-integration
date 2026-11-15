@@ -4,6 +4,7 @@ from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 
 from .coordinator import XccConfigEntry, XccCoordinator
+from .entity import async_device_info
 
 PLATFORMS = (Platform.SENSOR, Platform.BINARY_SENSOR, Platform.SWITCH, Platform.NUMBER)
 
@@ -17,6 +18,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: XccConfigEntry) -> bool:
         await coordinator.client.close()
         raise
     entry.runtime_data = coordinator
+    coordinator.devices = async_device_info(hass, entry)
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
     return True
 

@@ -20,6 +20,8 @@ type XccConfigEntry = ConfigEntry[XccCoordinator]
 class XccCoordinator(DataUpdateCoordinator[dict[str, bool | int | float]]):
     """Maintain the last confirmed device state."""
 
+    devices: dict
+
     def __init__(self, hass: HomeAssistant, entry: XccConfigEntry) -> None:
         super().__init__(
             hass,

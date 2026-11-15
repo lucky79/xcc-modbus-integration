@@ -26,10 +26,13 @@ xCC umožňuje jedno aktivní spojení Modbus TCP. Před přidáním integrace u
 
 ## Dostupné entity
 
+Od Home Assistantu 2026.9 se pod zařízením **AC Heating xCC** zobrazují samostatná podřízená zařízení **Topení**, **Akumulace** a **Teplá užitková voda**. Topení zahrnuje i samostatné zóny a externí teplotní vstupy. Systémové údaje jsou na hlavním zařízení. Po aktualizaci se stávající entity přesunou do příslušných zařízení se stejnými ID. Ve starších verzích Home Assistantu jsou všechny entity na hlavním zařízení.
+
 | Oblast | Čtení | Ovládání |
 | --- | --- | --- |
 | Systém | Venkovní, výstupní, požadovaná a vratná teplota, výkon systému a první venkovní jednotky v %, poruchy, HDO a stav bivalence | Hlavní vypínač, ve výchozím stavu zakázaný v registru entit Home Assistantu |
 | Topné okruhy | Teplota místnosti, teplota topné vody a aktivita | Povolení okruhu, požadovaná teplota místnosti, přepnutí mezi ekvitermní regulací a konstantní teplotou vody, nastavení konstantní teploty |
+| Akumulace | Teplota akumulační nádrže (holding registr 95, měřítko 100) a stav „Akumulace aktivní“ (coil 32) | — |
 | TUV | Teplota zásobníku, aktivita ohřevu, externí ohřev, aktivita a čas od poslední sanitace. U TUV 1 také stav cirkulace | Povolení ohřevu, minimální a maximální teplota, povolení, teplota a interval sanitace. U TUV 1 také povolení a ruční ovládání cirkulace |
 | Samostatné zóny | Teplota vzduchu, stav vytápění a požadované otevření ventilu | Povolení vytápění a požadovaná teplota |
 | Externí vstupy | Poslední načtená teplota externího vstupu | Předání naměřené teploty z čidla v Home Assistantu akcí `number.set_value` |
