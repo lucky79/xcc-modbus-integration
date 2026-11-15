@@ -11,7 +11,12 @@
           "heating_circuits": "Heating circuits",
           "dhw_tanks": "Hot water tanks",
           "zones": "Individual zones",
-          "external_inputs": "External temperature inputs"
+          "external_inputs": "External temperature inputs",
+          "outdoor_units": "Outdoor units",
+          "pools": "Pools",
+          "mbus_meters": "M-Bus meters",
+          "features": "Optional register groups",
+          "word_order": "Word order of 32-bit registers"
         }
       },
       "reconfigure": {
@@ -23,7 +28,12 @@
           "heating_circuits": "Heating circuits",
           "dhw_tanks": "Hot water tanks",
           "zones": "Individual zones",
-          "external_inputs": "External temperature inputs"
+          "external_inputs": "External temperature inputs",
+          "outdoor_units": "Outdoor units",
+          "pools": "Pools",
+          "mbus_meters": "M-Bus meters",
+          "features": "Optional register groups",
+          "word_order": "Word order of 32-bit registers"
         }
       }
     },
@@ -35,6 +45,22 @@
       "already_configured": "This controller is already configured.",
       "already_in_progress": "Setup for this controller is already in progress.",
       "reconfigure_successful": "The xCC configuration was saved."
+    }
+  },
+  "selector": {
+    "features": {
+      "options": {
+        "electric_meter": "Bus electricity meter (power and energy)",
+        "photovoltaics": "Solar PV",
+        "power_limits": "Output limits",
+        "dhw_schedules": "Tank 1 circulation schedules"
+      }
+    },
+    "word_order": {
+      "options": {
+        "high_word_first": "High word first",
+        "low_word_first": "Low word first"
+      }
     }
   }
 }

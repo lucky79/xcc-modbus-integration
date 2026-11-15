@@ -6,16 +6,25 @@ from ipaddress import ip_address
 import voluptuous as vol
 from homeassistant.config_entries import ConfigFlow, ConfigFlowResult
 from homeassistant.const import CONF_HOST, CONF_PORT
+from homeassistant.helpers.selector import SelectSelector, SelectSelectorConfig
 
 from .const import (
     CONF_DHW_TANKS,
     CONF_EXTERNAL_INPUTS,
+    CONF_FEATURES,
     CONF_HEATING_CIRCUITS,
+    CONF_MBUS_METERS,
+    CONF_OUTDOOR_UNITS,
+    CONF_POOLS,
     CONF_SCAN_INTERVAL,
+    CONF_WORD_ORDER,
     CONF_ZONES,
     DEFAULT_PORT,
     DEFAULT_SCAN_INTERVAL,
     DOMAIN,
+    FEATURES,
+    HIGH_WORD_FIRST,
+    LOW_WORD_FIRST,
 )
 from .modbus import XccClient, XccError
 from .registers import SYSTEM
@@ -52,11 +61,30 @@ def connection_settings(defaults: dict) -> vol.Schema:
         (CONF_DHW_TANKS, 1, 0, 2),
         (CONF_ZONES, 0, 0, 16),
         (CONF_EXTERNAL_INPUTS, 0, 0, 16),
+        (CONF_OUTDOOR_UNITS, 1, 1, 10),
+        (CONF_POOLS, 0, 0, 2),
+        (CONF_MBUS_METERS, 0, 0, 4),
     ):
         fields[vol.Required(key, default=defaults.get(key, default))] = vol.All(
             vol.Coerce(int),
             vol.Range(min=minimum, max=maximum),
         )
+    fields[vol.Optional(CONF_FEATURES, default=defaults.get(CONF_FEATURES, []))] = (
+        SelectSelector(
+            SelectSelectorConfig(
+                options=list(FEATURES), multiple=True, translation_key=CONF_FEATURES
+            )
+        )
+    )
+    fields[
+        vol.Optional(
+            CONF_WORD_ORDER, default=defaults.get(CONF_WORD_ORDER, HIGH_WORD_FIRST)
+        )
+    ] = SelectSelector(
+        SelectSelectorConfig(
+            options=[HIGH_WORD_FIRST, LOW_WORD_FIRST], translation_key=CONF_WORD_ORDER
+        )
+    )
     return vol.Schema(fields)
 
 

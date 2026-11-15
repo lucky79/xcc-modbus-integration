@@ -11,7 +11,12 @@
           "heating_circuits": "Počet topných okruhů",
           "dhw_tanks": "Počet zásobníků TUV",
           "zones": "Počet samostatných zón",
-          "external_inputs": "Počet externích teplotních vstupů"
+          "external_inputs": "Počet externích teplotních vstupů",
+          "outdoor_units": "Počet venkovních jednotek",
+          "pools": "Počet bazénů",
+          "mbus_meters": "Počet měřičů M-Bus",
+          "features": "Volitelné skupiny registrů",
+          "word_order": "Pořadí slov ve 32bitových registrech"
         }
       },
       "reconfigure": {
@@ -23,7 +28,12 @@
           "heating_circuits": "Počet topných okruhů",
           "dhw_tanks": "Počet zásobníků TUV",
           "zones": "Počet samostatných zón",
-          "external_inputs": "Počet externích teplotních vstupů"
+          "external_inputs": "Počet externích teplotních vstupů",
+          "outdoor_units": "Počet venkovních jednotek",
+          "pools": "Počet bazénů",
+          "mbus_meters": "Počet měřičů M-Bus",
+          "features": "Volitelné skupiny registrů",
+          "word_order": "Pořadí slov ve 32bitových registrech"
         }
       }
     },
@@ -35,6 +45,22 @@
       "already_configured": "Tento regulátor je už nastavený.",
       "already_in_progress": "Nastavení tohoto regulátoru už probíhá.",
       "reconfigure_successful": "Nastavení xCC bylo uloženo."
+    }
+  },
+  "selector": {
+    "features": {
+      "options": {
+        "electric_meter": "Sběrnicový elektroměr (příkon a spotřeba)",
+        "photovoltaics": "Fotovoltaika",
+        "power_limits": "Omezení výkonu",
+        "dhw_schedules": "Časové programy cirkulace TUV 1"
+      }
+    },
+    "word_order": {
+      "options": {
+        "high_word_first": "Vyšší slovo první",
+        "low_word_first": "Nižší slovo první"
+      }
     }
   }
 }

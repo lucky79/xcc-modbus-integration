@@ -9,7 +9,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
-from .const import CONF_SCAN_INTERVAL, DOMAIN
+from .const import CONF_SCAN_INTERVAL, CONF_WORD_ORDER, DOMAIN, LOW_WORD_FIRST
 from .modbus import XccClient, XccError, contiguous_blocks
 from .registers import Register, registers_for
 
@@ -33,7 +33,11 @@ class XccCoordinator(DataUpdateCoordinator[dict[str, bool | int | float]]):
         )
         self.registers = registers_for(entry.data)
         self._blocks = tuple(contiguous_blocks(self.registers))
-        self.client = XccClient(entry.data[CONF_HOST], entry.data[CONF_PORT])
+        self.client = XccClient(
+            entry.data[CONF_HOST],
+            entry.data[CONF_PORT],
+            low_word_first=entry.data.get(CONF_WORD_ORDER) == LOW_WORD_FIRST,
+        )
 
     async def _async_update_data(self) -> dict[str, bool | int | float]:
         try:

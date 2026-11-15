@@ -20,7 +20,7 @@ async def async_setup_entry(
     async_add_entities(
         XccNumber(entry, register)
         for register in entry.runtime_data.registers
-        if not register.coil and register.writable
+        if register.writable and register.limits is not None
     )
 
 
@@ -52,5 +52,7 @@ class XccNumber(XccEntity, NumberEntity):
                 f"Hodnota pro {self.register.name} je mimo povolený rozsah"
             )
         if self.register.scale == 1 and not float(value).is_integer():
-            raise HomeAssistantError("Interval sanitace zadejte v celých dnech")
+            raise HomeAssistantError("Zadejte celé číslo")
+        if self.register.hhmm and int(value) % 100 >= 60:
+            raise HomeAssistantError("Čas zadejte ve formátu HHMM s minutami 00 až 59")
         await self.coordinator.async_write(self.register, value)

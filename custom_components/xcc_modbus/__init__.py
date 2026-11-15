@@ -6,7 +6,13 @@ from homeassistant.core import HomeAssistant
 from .coordinator import XccConfigEntry, XccCoordinator
 from .entity import async_device_info
 
-PLATFORMS = (Platform.SENSOR, Platform.BINARY_SENSOR, Platform.SWITCH, Platform.NUMBER)
+PLATFORMS = (
+    Platform.SENSOR,
+    Platform.BINARY_SENSOR,
+    Platform.SWITCH,
+    Platform.NUMBER,
+    Platform.SELECT,
+)
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: XccConfigEntry) -> bool:

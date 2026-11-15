@@ -12,6 +12,14 @@ SECTION_NAMES = {
     Section.HEATING: "Topení",
     Section.BUFFER: "Akumulace",
     Section.DHW: "Teplá užitková voda",
+    Section.OUTDOOR: "Venkovní jednotky",
+    Section.AUXILIARY: "Kotel na tuhá paliva",
+    Section.POOL: "Bazén",
+    Section.METER: "Elektroměr",
+    Section.PV: "Fotovoltaika",
+    Section.LIMITS: "Omezení výkonu",
+    Section.SCHEDULES: "Programy cirkulace TUV",
+    Section.MBUS: "M-Bus měřiče",
 }
 
 
